@@ -30,11 +30,14 @@ namespace Judemy.Api
 			using Context? db = app.Services.CreateScope().ServiceProvider.GetRequiredService<Context>();
 			_ = Task.Run(async () => await Initializer.Initialize(db));
 
-			if (app.Environment.IsDevelopment())
-			{
-				_ = app.UseSwagger();
-				_ = app.UseSwaggerUI();
-			}
+			_ = app.UseSwagger();
+			_ = app.UseSwaggerUI();
+
+			//if (app.Environment.IsDevelopment())
+			//{
+			//	_ = app.UseSwagger();
+			//	_ = app.UseSwaggerUI();
+			//}
 			_ = app.UseHttpsRedirection();
 
 			_ = app.UseRouting();
@@ -42,6 +45,9 @@ namespace Judemy.Api
 			_ = app.UseAuthorization();
 			_ = app.MapControllers();
 			_ = app.UseCors(builder => builder.AllowAnyOrigin());
+
+			app.Map("/",()=>"Ok");
+
 			app.Run();
 		}
 	}

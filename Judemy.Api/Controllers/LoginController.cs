@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Judemy.Application.Common.Entity.User;
-using Judemy.Application.Common.Repositories;
+
 using Judemy.Application.Interfaces;
 using Judemy.Persistent.EntityTypeContext;
 using Judemy.Domain.Entity.Users;

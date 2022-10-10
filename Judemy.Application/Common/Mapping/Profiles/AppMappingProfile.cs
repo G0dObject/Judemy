@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using Judemy.Application.Common.Entity.Product;
-using Judemy.Application.Common.Entity.User;
 using Judemy.Domain.Entity;
 using System.Linq.Expressions;
 

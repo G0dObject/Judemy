@@ -5,17 +5,17 @@ VisualStudioVersion = 17.3.32811.315
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{FC19DF8F-EAEA-4715-B9F9-18BBDA32C626}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Judemy.Domain", "Judemy.Domain\Judemy.Domain.csproj", "{F5EB6284-A698-4428-A0A8-9BA8ADB76768}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Judemy.Domain", "Judemy.Domain\Judemy.Domain.csproj", "{F5EB6284-A698-4428-A0A8-9BA8ADB76768}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Judemy.Application", "Judemy.Application\Judemy.Application.csproj", "{2A35AD77-B6EA-4976-8247-489C0F506D50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Judemy.Application", "Judemy.Application\Judemy.Application.csproj", "{2A35AD77-B6EA-4976-8247-489C0F506D50}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{E8A4C7AF-1B61-4D84-B6C2-D29A210CA4C3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infastructure", "Infastructure", "{91CF5017-2CE5-40E0-8EBC-C2F9CB01E4D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Judemy.Persistent", "Judemy.Persistent\Judemy.Persistent.csproj", "{D822CCEF-35A8-413B-82E2-78C68C86A99C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Judemy.Persistent", "Judemy.Persistent\Judemy.Persistent.csproj", "{D822CCEF-35A8-413B-82E2-78C68C86A99C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Judemy.Api", "Judemy.Api\Judemy.Api.csproj", "{4CEBBFB5-D722-436C-961B-D165D02FC06B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Judemy.Api", "Judemy.Api\Judemy.Api.csproj", "{4CEBBFB5-D722-436C-961B-D165D02FC06B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
