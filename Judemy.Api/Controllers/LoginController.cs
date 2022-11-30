@@ -2,9 +2,12 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-using Judemy.Application.Interfaces;
-using Judemy.Persistent.EntityTypeContext;
 using Judemy.Domain.Entity.Users;
+using Judemy.Application.Common.Entity;
+using Microsoft.AspNetCore.Authorization;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Judemy.Application.Interfaces.Services;
 
 namespace Judemy.Api.Controllers
 {
@@ -12,36 +15,67 @@ namespace Judemy.Api.Controllers
 	[ApiController]
 	public class LoginController : ControllerBase
 	{
-		private readonly IContext _context;
-		private readonly IMapper _mapper;
-
 		private readonly UserManager<User> _userManager;
+		private readonly IJwtTokenGenerator _jwtTokenGenerator;
 		private readonly RoleManager<Role> _roleManager;
-		private readonly SignInManager<User> _signInManager;
 
-		public LoginController(Context context, IMapper mapper,
-			UserManager<User> userManager, RoleManager<Role> rolemanager, SignInManager<User> signInManager)
+		public LoginController(UserManager<User> userManager, IJwtTokenGenerator jwtTokenGenerator, RoleManager<Role> roleManager)
 		{
-			_context = context;
-			_mapper = mapper;
 			_userManager = userManager;
-			_roleManager = rolemanager;
-			_signInManager = signInManager;
+			_jwtTokenGenerator = jwtTokenGenerator;
+			_roleManager = roleManager;
+		}
+		[Authorize]
+		[HttpGet]
+		public string GetSecret() => "Ok";
+
+		[HttpPost]
+		[Route("Login")]
+		public async Task<IActionResult> Login([FromBody] LoginUser model)
+		{
+			User? user = await _userManager.FindByEmailAsync(model.Email);
+
+			if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
+			{
+				IList<string> userRoles = await _userManager.GetRolesAsync(user);
+
+				List<Claim> authClaims = new()
+				{
+					new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName)
+				};
+
+				foreach (string? userRole in userRoles)
+				{
+					authClaims.Add(new Claim(ClaimTypes.Role, userRole));
+				}
+				JwtSecurityToken? token = _jwtTokenGenerator.GenerateJwtToken(authClaims);
+
+				return Ok(new
+				{
+					username = user.UserName,
+					token = new JwtSecurityTokenHandler().WriteToken(token),
+				});
+			}
+			return Unauthorized();
 		}
 		[HttpPost]
-		public async Task<string> Register(CreateUser user)
+		[Route("Register")]
+		public async Task<IActionResult> Register(CreateUser model)
 		{
-			User? mapped = _mapper.Map<User>(user);
-			if (ModelState.IsValid)
-			{
-				IdentityResult? result = await _userManager.CreateAsync(mapped, mapped.PasswordHash);
-				if (result.Succeeded)
-				{
-					await _signInManager.SignInAsync(mapped, true);
-				}
-			}
+			User userExists = await _userManager.FindByNameAsync(model.UserName);
+			if (userExists != null)
+				return StatusCode(StatusCodes.Status409Conflict, "Alredy exist");
 
-			return "OK";
+			User user = new()
+			{
+				Email = model.Email,
+				SecurityStamp = Guid.NewGuid().ToString(),
+				UserName = model.UserName
+			};
+			IdentityResult result = await _userManager.CreateAsync(user, model.Password);
+			return !result.Succeeded
+				? StatusCode(StatusCodes.Status400BadRequest, "Create Failed")
+				: Ok("User created successfully!");
 		}
 	}
 }

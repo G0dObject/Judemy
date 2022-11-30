@@ -10,7 +10,6 @@ namespace Judemy.Persistent.DependencyInjection
 	public static class DbDependencyInjection
 	{
 		public static IServiceCollection AddDbDependency(this IServiceCollection services, IConfiguration configuration, bool IsDevelopment = false)
-
 		{
 			if (IsDevelopment)
 			{

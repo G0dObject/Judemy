@@ -12,9 +12,7 @@ namespace Judemy.Persistent.Repositories
 		public AuthorizationRepository(Context context) : base(context)
 		{
 			_context = context;
-			UserManager = new UserManager<User>();
-		}
 
-		public UserManager<User> UserManager { get; set; } = new UserManager<User>();
+		}
 	}
 }

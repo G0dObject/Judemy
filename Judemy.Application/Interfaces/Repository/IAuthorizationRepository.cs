@@ -6,6 +6,5 @@ namespace Judemy.Persistent.Repositories
 {
 	public interface IAuthorizationRepository : IGenericRepository<User>
 	{
-		public UserManager<User> UserManager { get; set; }
 	}
 }
