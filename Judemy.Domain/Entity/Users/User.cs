@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System.Text.Json.Serialization;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Judemy.Domain.Entity.Users
 {
-	public class User : IdentityUser<int>
+	public class User : IdentityUser<int>, Entity
 	{
-		public int? CartId { get; set; }
+		public int CartId { get; set; }
 	}
 }

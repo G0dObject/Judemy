@@ -7,6 +7,6 @@ namespace Judemy.Api.Controllers
 	public class ValuesController : ControllerBase
 	{
 		[HttpPost]
-		StatusCodeResult Test()=> Ok();
+		StatusCodeResult Test() => Ok();
 	}
 }

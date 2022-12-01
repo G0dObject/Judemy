@@ -1,4 +1,5 @@
-﻿using Judemy.Application.Interfaces;
+using Judemy.Application.Interfaces;
+using Judemy.Application.Interfaces.Repository;
 using Judemy.Persistent.EntityTypeContext;
 using Judemy.Persistent.Repositories;
 
@@ -13,12 +14,13 @@ namespace Judemy.Persistent
 		{
 			_context = context;
 			Authorization = new AuthorizationRepository(context);
+			Course = new CourseRepository(context);
 		}
 		~UnitOfWork() => Dispose();
 
 		public IAuthorizationRepository Authorization { get; set; }
-
-		public async Task Save()=> _ = await _context.SaveChangesAsync();
+		public ICourseRepository Course { get; set; }
+		public async Task Save() => _ = await _context.SaveChangesAsync();
 		public void Dispose()
 		{
 			if (!_disposed)

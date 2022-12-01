@@ -17,6 +17,7 @@ namespace Judemy.Persistent.DependencyInjection
 				_ = services.AddDbContext<Context>(option =>
 				{
 					_ = option.UseMySQL(connectionString);
+
 				});
 			}
 			else

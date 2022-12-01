@@ -1,10 +1,15 @@
 using Judemy.Api.Services;
 using Judemy.Application.Common.Mapping.Profiles;
+using Judemy.Application.Interfaces;
+using Judemy.Application.Interfaces.Repository;
 using Judemy.Application.Interfaces.Services;
+using Judemy.Persistent;
 using Judemy.Persistent.DependencyInjection;
 using Judemy.Persistent.EntityTypeConfiguration;
 using Judemy.Persistent.EntityTypeContext;
+using Judemy.Persistent.Repositories;
 using Microsoft.AspNetCore.Authentication.Certificate;
+using NuGet.Protocol.Core.Types;
 
 namespace Judemy.Api
 {
@@ -24,7 +29,7 @@ namespace Judemy.Api
 				options.AddPolicy(name: _cors,
 								  policy =>
 								  {
-									  policy.WithOrigins("http://localhost:3000",
+									  _ = policy.WithOrigins("http://localhost:3000",
 														  "http://localhost");
 								  });
 			});
@@ -34,8 +39,18 @@ namespace Judemy.Api
 			_ = builder.Services.AddAuthenticationDependency(builder.Configuration);
 
 			_ = builder.Services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
+			_ = builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
 			_ = builder.Services.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme).AddCertificate();
+
+			builder.WebHost.ConfigureKestrel(serverOptions =>
+			{
+				serverOptions.ListenAnyIP(5001, listenOptions =>
+				{
+					listenOptions.UseHttps();
+				});
+			});
+			builder.WebHost.UseKestrel();
 
 			WebApplication? app = builder.Build();
 
@@ -45,11 +60,11 @@ namespace Judemy.Api
 			_ = app.UseSwagger();
 			_ = app.UseSwaggerUI();
 
-			//if (app.Environment.IsDevelopment())
-			//{
-			//	_ = app.UseSwagger();
-			//	_ = app.UseSwaggerUI();
-			//}
+			if (app.Environment.IsDevelopment())
+			{
+				_ = app.UseSwagger();
+				_ = app.UseSwaggerUI();
+			}
 
 			_ = app.UseCors(_cors);
 			_ = app.UseHttpsRedirection();
@@ -59,7 +74,7 @@ namespace Judemy.Api
 			_ = app.UseAuthorization();
 			_ = app.MapControllers();
 
-			app.Map("/", () => "Ok");
+			_ = app.Map("/", () => "Ok");
 
 			app.Run();
 		}

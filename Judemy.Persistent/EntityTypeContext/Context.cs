@@ -16,6 +16,7 @@ namespace Judemy.Persistent.EntityTypeContext
 			_ = option.ApplyConfiguration(new UserOptionConfiguration());
 			_ = option.ApplyConfiguration(new UserRoleOptionConfiguration());
 			_ = option.ApplyConfiguration(new UserTokensOptionConfiguration());
+			_ = option.ApplyConfiguration(new CourseOptionConfiguration());
 			base.OnModelCreating(option);
 
 		}

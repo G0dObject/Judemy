@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Judemy.Persistent.Repositories.Base
 {
-	public class GenericRepository<T> : IGenericRepository<T> where T : class
+	public class GenericRepository<T> : Application.Interfaces.Base.IGenericRepository<T> where T : class
 	{
-		internal readonly Context _context;
+		internal Context _context;
 		public GenericRepository(Context context)
 		{
 			_context = context;

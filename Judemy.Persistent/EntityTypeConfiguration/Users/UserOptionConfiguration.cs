@@ -12,7 +12,6 @@ namespace Judemy.Persistent.EntityTypeConfiguration.Users
 			_ = builder.Property(u => u.UserName).HasMaxLength(30);
 			_ = builder.Property(u => u.Email);
 			_ = builder.Property(u => u.PasswordHash);
-
 		}
 	}
 }

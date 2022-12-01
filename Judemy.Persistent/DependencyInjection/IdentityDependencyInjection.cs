@@ -23,7 +23,7 @@ namespace Judemy.Persistent.DependencyInjection
 				option.SignIn.RequireConfirmedEmail = false;
 				option.SignIn.RequireConfirmedAccount = false;
 			}).AddEntityFrameworkStores<Context>().AddDefaultTokenProviders();
-		
+
 			return services;
 		}
 	}

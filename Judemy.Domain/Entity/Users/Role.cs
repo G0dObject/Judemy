@@ -2,7 +2,7 @@
 
 namespace Judemy.Domain.Entity.Users
 {
-	public class Role : IdentityRole<int>
+	public class Role : IdentityRole<int>, Entity
 	{
 
 	}

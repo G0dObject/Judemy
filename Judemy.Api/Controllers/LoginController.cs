@@ -1,13 +1,12 @@
 ﻿using AutoMapper;
+using Judemy.Application.Common.Entity;
+using Judemy.Application.Interfaces.Services;
+using Judemy.Domain.Entity.Users;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-
-using Judemy.Domain.Entity.Users;
-using Judemy.Application.Common.Entity;
-using Microsoft.AspNetCore.Authorization;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using Judemy.Application.Interfaces.Services;
 
 namespace Judemy.Api.Controllers
 {
